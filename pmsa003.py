@@ -69,4 +69,4 @@ class Sensor(object):
             if time.monotonic() > timeout_time:
                 raise SensorException("No message recieved")
         self._verify(recv)
-        return SensorReading(recv)
+        return PMSReading(recv)
