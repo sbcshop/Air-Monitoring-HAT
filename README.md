@@ -18,15 +18,16 @@
 
 Open a terminal and run the following commands to enable I2C and Serial：
 
-```terminal
-sudo raspi-config 
-Choose Interfacing Options -> I2C ->yes 
-```
 
-```terminal
-sudo raspi-config
+``` sudo raspi-config ```
+
+Choose Interfacing Options -> I2C ->yes 
+
+
+``` sudo raspi-config ```
+
 Choose Interfacing Options -> Serial -> No -> Yes
-```
+
 
 ## Testing
 
