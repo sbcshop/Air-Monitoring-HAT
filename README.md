@@ -34,6 +34,7 @@ Choose Interfacing Options -> Serial -> No -> Yes
 ### Clone Repository
 
 ``` git clone https://github.com/sbcshop/Air-Monitoring-HAT.git ```
+
 ``` cd Air-Monitoring-HAT ```
 
 Run GUI by running below command:
