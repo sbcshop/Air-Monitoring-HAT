@@ -44,7 +44,9 @@ Select <b>COM port</b> from above GUI ("/dev/ttyS0" in case of default connectio
 and click on the start button to start Real-Time data from the sensor.
 
 You can also use these two examples and modify it easily :
+
  1.) display_on_oled_example.py  :- To print the sensor data on Oled Display.
+ 
  2.) read_example.py : To print the sensor data on Python shell or Terminal.
  
  For detailed information please visit wiki of this repository.
