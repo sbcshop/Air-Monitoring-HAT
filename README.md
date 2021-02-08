@@ -23,11 +23,14 @@
 
 Choose Interfacing Options -> I2C ->yes 
 
+<img src="Images/en_i2c_all.png" />
+
 
 * ``` sudo raspi-config ```
 
 Choose Interfacing Options -> Serial -> No -> Yes
 
+<img src="Images/en_serial_full.png" />
 
 ## Testing
 
