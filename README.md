@@ -1,5 +1,7 @@
 # Air Monitoring HAT
 
+SB Components developed the Air Monitor HAT for Raspberry Pi an open-source portable sensor that has the ability to provide the level of quantity of the suspended particulates with their mass.
+
 ## Pinout (Internally connected via header)
 
 | Peripheral Pins  | Raspberry Pi Pins |
