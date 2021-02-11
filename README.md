@@ -56,5 +56,7 @@ You can also use these two examples and modify it easily :
  2.) read_example.py : To print the sensor data on Python shell or Terminal.
  
  For detailed information please visit wiki of this repository.
+ 
+ https://github.com/sbcshop/Air-Monitoring-HAT/wiki/Wiki
 
 
