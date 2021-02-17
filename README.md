@@ -4,6 +4,8 @@ SB Components developed the Air Monitor HAT for Raspberry Pi an open-source port
 
 Buy it from : https://shop.sb-components.co.uk/products/air-monitoring-hat-for-raspberry-pi
 
+<img src="Images/product-pic1.png" width="400" />
+
 ## Pinout (Internally connected via header)
 
 | Peripheral Pins  | Raspberry Pi Pins |
