@@ -40,6 +40,8 @@ Choose Interfacing Options -> Serial -> No -> Yes
 
 ## Testing
 
+* Stack Air Monitoring HAT on top of Raspberry Pi GPIO Header pins.
+
 ### Clone Repository
 
 ``` git clone https://github.com/sbcshop/Air-Monitoring-HAT.git ```
@@ -53,7 +55,7 @@ Run GUI by running below command:
 <img src="Images/Air_Monitoring_GUI.png" />
 
 Select <b>COM port</b> from above GUI ("/dev/ttyS0" in case of default connection), 
-and click on the start button to start Real-Time data from the sensor.
+and click on the start button to start Real-Time data from the sensor on Graph and on Oled Display.
 
 You can also use these two examples and modify it easily :
 
