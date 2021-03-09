@@ -50,6 +50,8 @@ Run GUI by running below command:
 
 ``` python3 Air_monitoring_GUI.py ```
 
+<img src="Images/Air_Monitoring_GUI.png" />
+
 Select <b>COM port</b> from above GUI ("/dev/ttyS0" in case of default connection), 
 and click on the start button to start Real-Time data from the sensor.
 
