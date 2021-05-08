@@ -53,7 +53,7 @@ Choose Interfacing Options -> Serial -> No -> Yes
 
 Run GUI by running below command:
 
-``` python3 Air_monitoring_GUI.py ```
+``` python3 Air_Monitoring_GUI.py ```
 
 <img src="Images/Air_Monitoring_GUI.png" />
 
