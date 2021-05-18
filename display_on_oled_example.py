@@ -1,11 +1,28 @@
 from pms_a003 import Sensor
 from oled_091 import SSD1306
 from time import sleep
+from os import path
+from serial import SerialException
+
+DIR_PATH = path.abspath(path.dirname(__file__))
+DefaultFont = path.join(DIR_PATH, "Fonts/GothamLight.ttf")
+
+def info_print():
+    oled_display.DirImage(path.join(DIR_PATH, "Images/SB.png"))
+    oled_display.DrawRect()
+    oled_display.ShowImage()
+    sleep(1)
+    oled_display.PrintText("  Waiting....", FontSize=14)
+    oled_display.ShowImage()
+
 
 oled_display = SSD1306()
 air_mon = Sensor()
 air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
 
+
+if __name__ == "__main__":
+    info_print()
 try:
     while True:
         values = air_mon.read()
