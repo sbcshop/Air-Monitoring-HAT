@@ -70,8 +70,9 @@ def info_print():
                                cords=(25, 20), FontSize=13)
         oled_display.ShowImage()
 
-    except KeyboardInterrupt:
+    except Exception as e:
         air_mon.disconnect_hat()
+        logger.error("Error Reading From Sensor : {}".format(e))
     else:
 
         if args.json:
