@@ -39,6 +39,7 @@ if __name__ == "__main__":
         logging.basicConfig(level=logging.DEBUG)
 
     logger = logging.getLogger("rad_single.py")
+    logger.info("Running rad_single.py")
 
     # Initalize Sensor
     oled_display = SSD1306()
