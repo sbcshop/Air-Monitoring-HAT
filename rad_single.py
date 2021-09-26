@@ -16,6 +16,59 @@ from serial import SerialException
 DIR_PATH = path.abspath(path.dirname(__file__))
 DefaultFont = path.join(DIR_PATH, "Fonts/GothamLight.ttf")
 
+def collect_data():
+    air_mon = Sensor()
+    air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
+
+    values = air_mon.read()
+    logger.debug("PMS 1 value is {}".format(values.pm10_cf1))
+    logger.debug("PMS 2.5 value is {}".format(values.pm25_cf1))
+    logger.debug("PMS 10 value is {}".format(values.pm100_cf1))
+
+    air_mon.disconnect_hat()
+
+    return values
+
+
+
+def info_print():
+    oled_display.DirImage(path.join(DIR_PATH, "Images/SB.png"))
+    oled_display.DrawRect()
+    oled_display.ShowImage()
+    sleep(1)
+    oled_display.PrintText("  Waiting....", FontSize=14)
+    oled_display.ShowImage()
+
+    try:
+        values = collect_data()
+
+        jsonic_data = dict(pm1_0=values.pm10_cf1,
+                           pm2_5=values.pm25_cf1,
+                           pm10=values.pm100_cf1)
+
+        logger.debug(jsonic_data)
+
+
+        oled_display.PrintText("PM1.0= {:2d}".format(values.pm10_cf1),
+                               cords=(2, 2), FontSize=10)
+        oled_display.PrintText("PM2.5= {:2d}".format(values.pm25_cf1),
+                               cords=(65, 2), FontSize=10)
+        oled_display.PrintText("PM10= {:2d}".format(values.pm100_cf1),
+                               cords=(25, 20), FontSize=13)
+        oled_display.ShowImage()
+
+    except Exception as e:
+        air_mon.disconnect_hat()
+        logger.error("Error Reading From Sensor : {}".format(e))
+    else:
+
+        if args.json:
+            logger.debug("Implement Write Out Feature Set.")
+
+        logger.debug(json.dumps(jsonic_data))
+
+
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
@@ -46,38 +99,5 @@ if __name__ == "__main__":
     air_mon = Sensor()
     air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
 
-
-def info_print():
-    oled_display.DirImage(path.join(DIR_PATH, "Images/SB.png"))
-    oled_display.DrawRect()
-    oled_display.ShowImage()
-    sleep(1)
-    oled_display.PrintText("  Waiting....", FontSize=14)
-    oled_display.ShowImage()
-
-    try:
-        values = air_mon.read()
-
-        jsonic_data = dict(pm1_0=values.pm10_cf1,
-                           pm2_5=values.pm25_cf1,
-                           pm10=values.pm100_cf1)
-
-
-        oled_display.PrintText("PM1.0= {:2d}".format(values.pm10_cf1),
-                               cords=(2, 2), FontSize=10)
-        oled_display.PrintText("PM2.5= {:2d}".format(values.pm25_cf1),
-                               cords=(65, 2), FontSize=10)
-        oled_display.PrintText("PM10= {:2d}".format(values.pm100_cf1),
-                               cords=(25, 20), FontSize=13)
-        oled_display.ShowImage()
-
-    except Exception as e:
-        air_mon.disconnect_hat()
-        logger.error("Error Reading From Sensor : {}".format(e))
-    else:
-
-        if args.json:
-            logger.debug("Implement Write Out Feature Set.")
-
-        logger.debug(json.dumps(jsonic_data))
+    info_print()
 
