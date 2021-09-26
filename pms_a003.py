@@ -1,11 +1,16 @@
 import serial
 import time
+import json
+import logging
 
 
 class PMSReading(object):
     """One single reading."""
 
     def __init__(self, line):
+        self.logger = logging.getLogger("PMSReading")
+        self.logger.debug(line)
+
         self.pm10_cf1 = line[4] * 256 + line[5]
         self.pm25_cf1 = line[6] * 256 + line[7]
         self.pm100_cf1 = line[8] * 256 + line[9]
@@ -18,6 +23,7 @@ class PMSReading(object):
         self.gr25um = line[22] * 256 + line[23]
         self.gr50um = line[24] * 256 + line[25]
         self.gr100um = line[26] * 256 + line[27]
+
 
 
 class SensorException(Exception):
