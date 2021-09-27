@@ -65,6 +65,8 @@ def info_print():
         logger.debug("pn2.5 Std Dev: {}".format(values.pm25_std))
         logger.debug("pm10.0 Std Dev: {}".format(values.pm100_std))
         logger.debug("Ozone : {}".format(values.gr25um))
+        logger.debug("Unknown: {}".format(values.gr10um))
+        logger.debug("Unknown: {}".format(values.gr100um))
 
 
         oled_display.PrintText("PM1.0= {:2d}".format(values.pm10_cf1),
