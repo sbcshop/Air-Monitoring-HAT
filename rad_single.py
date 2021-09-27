@@ -9,6 +9,7 @@ import json
 import time
 from os import path
 
+import pms_a003
 from pms_a003 import Sensor
 from oled_091 import SSD1306
 from time import sleep
@@ -32,6 +33,8 @@ def collect_data(max=5):
             values = air_mon.read()
         except SerialException as se:
             logger.error("Serial Exception found when requesting Data: {}".format(se))
+        except pms_a003.SensorException as sensor_exception:
+            logger.error("Sensor Exception : {}".format(sensor_exception))
         except Exception as gen_err:
             logger.error("General Error: {} {}".format(type(gen_err), gen_err))
             break
@@ -61,13 +64,6 @@ def info_print():
                            pm10=values.pm100_cf1)
 
         logger.debug(jsonic_data)
-        logger.debug("pn10 Std Dev: {}".format(values.pm10_std))
-        logger.debug("pn2.5 Std Dev: {}".format(values.pm25_std))
-        logger.debug("pm10.0 Std Dev: {}".format(values.pm100_std))
-        logger.debug("Ozone : {}".format(values.gr25um))
-        logger.debug("Unknown: {}".format(values.gr10um))
-        logger.debug("Unknown: {}".format(values.gr100um))
-
 
         oled_display.PrintText("PM1.0= {:2d}".format(values.pm10_cf1),
                                cords=(2, 2), FontSize=10)
