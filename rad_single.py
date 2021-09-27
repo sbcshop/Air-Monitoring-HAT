@@ -32,6 +32,9 @@ def collect_data(max=5):
             values = air_mon.read()
         except SerialException as se:
             logger.error("Serial Exception found when requesting Data: {}".format(se))
+        except Exception as gen_err:
+            logger.error("General Error: {} {}".format(type(gen_err), gen_err))
+            break
         else:
             # It worked Break Out
             break
