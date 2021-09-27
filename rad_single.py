@@ -6,6 +6,7 @@
 import argparse
 import logging
 import json
+import time
 from os import path
 
 from pms_a003 import Sensor
@@ -16,14 +17,24 @@ from serial import SerialException
 DIR_PATH = path.abspath(path.dirname(__file__))
 DefaultFont = path.join(DIR_PATH, "Fonts/GothamLight.ttf")
 
-def collect_data():
+def collect_data(max=5):
     air_mon = Sensor()
     air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
 
-    values = air_mon.read()
-    logger.debug("PMS 1 value is {}".format(values.pm10_cf1))
-    logger.debug("PMS 2.5 value is {}".format(values.pm25_cf1))
-    logger.debug("PMS 10 value is {}".format(values.pm100_cf1))
+    values = None
+
+    for x in range(0, max):
+        if x > 0:
+            logger.debug("Retrying Attempt {}".format(x))
+            time.sleep(3)
+
+        try:
+            values = air_mon.read()
+        except SerialException as se:
+            logger.error("Serial Exception found when requesting Data: {}".format(se))
+        else:
+            # It worked Break Out
+            break
 
     air_mon.disconnect_hat()
 
