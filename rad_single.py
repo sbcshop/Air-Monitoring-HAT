@@ -58,8 +58,8 @@ def info_print():
                            pm10=values.pm100_cf1)
 
         logger.debug(jsonic_data)
-        logger.debug(values.pm25_std)
-        logger.debug(values.gr25um)
+        logger.debug("pn2.5 Standard Deviation : {}".format(values.pm25_std))
+        logger.debug("Ozone : {}".format(values.gr25um))
 
 
         oled_display.PrintText("PM1.0= {:2d}".format(values.pm10_cf1),
