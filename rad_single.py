@@ -61,7 +61,9 @@ def info_print():
                            pm10=values.pm100_cf1)
 
         logger.debug(jsonic_data)
-        logger.debug("pn2.5 Standard Deviation : {}".format(values.pm25_std))
+        logger.debug("pn10 Std Dev: {}".format(values.pm10_std))
+        logger.debug("pn2.5 Std Dev: {}".format(values.pm25_std))
+        logger.debug("pm10.0 Std Dev: {}".format(values.pm100_std))
         logger.debug("Ozone : {}".format(values.gr25um))
 
 
