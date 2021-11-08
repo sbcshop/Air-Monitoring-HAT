@@ -32,11 +32,11 @@ def collect_data(max=5):
         try:
             values = air_mon.read()
         except SerialException as se:
-            logger.error("Serial Exception found when requesting Data: {}".format(se))
+            logger.warning("Serial Exception found when requesting Data: {}".format(se))
         except pms_a003.SensorException as sensor_exception:
-            logger.error("Sensor Exception : {}".format(sensor_exception))
+            logger.warning("Sensor Exception : {}".format(sensor_exception))
         except Exception as gen_err:
-            logger.error("General Error: {} {}".format(type(gen_err), gen_err))
+            logger.warning("General Error: {} {}".format(type(gen_err), gen_err))
             break
         else:
             # It worked Break Out
@@ -48,13 +48,15 @@ def collect_data(max=5):
 
 
 
-def info_print():
+def info_print(oled_display, ari_mon):
     oled_display.DirImage(path.join(DIR_PATH, "Images/SB.png"))
     oled_display.DrawRect()
     oled_display.ShowImage()
     sleep(1)
     oled_display.PrintText("  Waiting....", FontSize=14)
     oled_display.ShowImage()
+
+    info = dict(okay=False, data={})
 
     try:
         values = collect_data()
@@ -74,16 +76,19 @@ def info_print():
         oled_display.ShowImage()
 
     except Exception as e:
-        air_mon.disconnect_hat()
-        logger.error("Error Reading From Sensor : {}".format(e))
+        logger.warning("Error Reading From Sensor : {}".format(e))
+        info["okay"] = False
+
     else:
 
         if args.json:
             logger.debug("Implement Write Out Feature Set.")
 
         logger.debug(json.dumps(jsonic_data))
+        info["okay"] = True
+        info["data"] = jsonic_data
 
-
+    return info
 
 if __name__ == "__main__":
 
@@ -93,12 +98,13 @@ if __name__ == "__main__":
                         const=1, default=[])
 
     parser.add_argument("-j", "--json", help="JSON, Write Out", default=None)
+    parser.add_argument("-n", "--nrpe", help="NRPE Write out", default=False, action="store_true")
 
     args = parser.parse_args()
 
     VERBOSE = len(args.verbose)
 
-    if VERBOSE == 0:
+    if VERBOSE == 0 or args.nrpe is True:
         logging.basicConfig(level=logging.ERROR)
     elif VERBOSE == 1:
         logging.basicConfig(level=logging.WARNING)
@@ -112,8 +118,9 @@ if __name__ == "__main__":
 
     # Initalize Sensor
     oled_display = SSD1306()
-    air_mon = Sensor()
-    air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
+    #air_mon = Sensor()
+    #air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
 
-    info_print()
+    info = info_print(oled_display)
+
 
