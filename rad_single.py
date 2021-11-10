@@ -143,7 +143,7 @@ if __name__ == "__main__":
             else:
                 msg = "OK - Air Quality Okay"
 
-        perf_data = " ".join(["{k}={v}".format(k, v) for k, v in info["data"].items()])
+        perf_data = " ".join(["{}={}".format(k, v) for k, v in info["data"].items()])
 
         print("{} | {}".format(msg, perf_data))
 
