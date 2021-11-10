@@ -51,7 +51,7 @@ def collect_data(max=5):
 
 
 
-def info_print(oled_display, ari_mon):
+def info_print(oled_display):
     oled_display.DirImage(path.join(DIR_PATH, "Images/SB.png"))
     oled_display.DrawRect()
     oled_display.ShowImage()
