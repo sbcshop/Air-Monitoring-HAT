@@ -18,6 +18,9 @@ from serial import SerialException
 DIR_PATH = path.abspath(path.dirname(__file__))
 DefaultFont = path.join(DIR_PATH, "Fonts/GothamLight.ttf")
 
+threshold_moderate = 13
+threshold_high = 36
+
 def collect_data(max=5):
     air_mon = Sensor()
     air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
@@ -122,5 +125,27 @@ if __name__ == "__main__":
     #air_mon.connect_hat(port="/dev/ttyS0", baudrate=9600)
 
     info = info_print(oled_display)
+
+
+    if args.nrpe is True:
+        msg = "Unknown - I don't know what has happened"
+        return_code = 3
+        # I have a nrpe request
+        if info["okay"] is False:
+            msg = "Error - I have had a significant error and I do not know why."
+            return_code = 3
+        else:
+
+            if info["data"]["pm2_5"] > threshold_high:
+                msg = "Critical - Bad Air Quality Detected"
+            elif info["data"]["pm2_5"] > threshold_moderate:
+                msg = "Warning - Suboptimal Air Quality Detected"
+            else:
+                msg = "OK - Air Quality Okay"
+
+        perf_data = " ".join(["{k}={v}".format(k, v) for k, v in info["data"].items()])
+
+        print("{} | {}".format(msg, perf_data))
+
 
 
