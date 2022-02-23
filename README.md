@@ -44,6 +44,7 @@ Choose Interfacing Options -> Serial -> No -> Yes
 * Before test, please install required dependancy by running below command.
 
 ```pip3 install pillow```
+```pip3 install matplotlib```
 
 ### Clone Repository
 
