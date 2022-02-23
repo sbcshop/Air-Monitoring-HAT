@@ -41,10 +41,10 @@ Choose Interfacing Options -> Serial -> No -> Yes
 ## Testing
 
 * Stack Air Monitoring HAT on top of Raspberry Pi GPIO Header pins.
-* Before test, please install required dependancy by running below command.
+* Before the test, please install the required dependency by running the below command.
 
-```pip3 install pillow```
-```pip3 install matplotlib```
+*```pip3 install pillow```
+*```pip3 install matplotlib```
 
 ### Clone Repository
 
@@ -52,7 +52,7 @@ Choose Interfacing Options -> Serial -> No -> Yes
 
 ``` cd Air-Monitoring-HAT ```
 
-Run GUI by running below command:
+Run GUI by running the below command:
 
 ``` python3 Air_Monitoring_GUI.py ```
 
@@ -61,13 +61,13 @@ Run GUI by running below command:
 Select <b>COM port</b> from above GUI ("/dev/ttyS0" in case of default connection), 
 and click on the start button to start Real-Time data from the sensor on Graph and on Oled Display.
 
-You can also use these two examples and modify it easily :
+You can also use these two examples and modify them easily :
 
  1.) display_on_oled_example.py  :- To print the sensor data on Oled Display.
  
  2.) read_example.py : To print the sensor data on Python shell or Terminal.
  
- For detailed information please visit wiki of this repository.
+ For detailed information please visit the wiki of this repository.
  
  https://github.com/sbcshop/Air-Monitoring-HAT/wiki/Wiki
 
