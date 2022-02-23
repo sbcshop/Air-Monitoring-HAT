@@ -41,7 +41,7 @@ Choose Interfacing Options -> Serial -> No -> Yes
 ## Testing
 
 * Stack Air Monitoring HAT on top of Raspberry Pi GPIO Header pins.
-* Before the test, please install the required dependency by running the below command.
+### Before the test, please install the required dependency by running the below command:-
 
 ``` pip3 install pillow ```
 
