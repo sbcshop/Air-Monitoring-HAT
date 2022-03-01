@@ -67,6 +67,7 @@ def info_print(oled_display):
         values = collect_data()
 
         eaqi, info["eaqi_h"] = f_estimateAQI(values)
+        info["eaqi"] = eaqi
 
 
         jsonic_data = dict(pm1_0=values.pm10_cf1,
@@ -147,11 +148,11 @@ if __name__ == "__main__":
         else:
 
             if info["data"]["pm2_5"] > threshold_high:
-                msg = "Critical - Air Quality {eaqi_h} ({data['eaqi']:2f})".format(**info)
+                msg = "Critical - Air Quality {eaqi_h} ({eaqi:2f})".format(**info)
             elif info["data"]["pm2_5"] > threshold_moderate:
-                msg = "Warning - Air Quality {eaqi_h} ({data['eaqi']:2f})".format(**info)
+                msg = "Warning - Air Quality {eaqi_h} ({eaqi:2f})".format(**info)
             else:
-                msg = "OK - Air Quality {eaqi_h} ({data['eaqi']:2f})".format(**info)
+                msg = "OK - Air Quality {eaqi_h} ({eaqi:2f})".format(**info)
 
         perf_data = " ".join(["{}={}".format(k, v) for k, v in info["data"].items()])
 
