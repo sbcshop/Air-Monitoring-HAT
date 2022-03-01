@@ -84,7 +84,7 @@ def info_print(oled_display):
                                cords=(2, 2), FontSize=10)
         oled_display.PrintText("PM2.5= {:2d}".format(values.pm25_cf1),
                                cords=(65, 2), FontSize=10)
-        oled_display.PrintText("AQI= {:2d}".format(eaqi),
+        oled_display.PrintText("AQI= {:2f}".format(eaqi),
                                cords=(25, 20), FontSize=13)
         oled_display.ShowImage()
 
