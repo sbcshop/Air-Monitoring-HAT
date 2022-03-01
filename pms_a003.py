@@ -11,18 +11,22 @@ class PMSReading(object):
         self.logger = logging.getLogger("PMSReading")
         self.logger.debug(line)
 
-        self.pm10_cf1 = line[4] * 256 + line[5]
-        self.pm25_cf1 = line[6] * 256 + line[7]
-        self.pm100_cf1 = line[8] * 256 + line[9]
-        self.pm10_std = line[10] * 256 + line[11]
-        self.pm25_std = line[12] * 256 + line[13]
-        self.pm100_std = line[14] * 256 + line[15]
-        self.gr03um = line[16] * 256 + line[17]
-        self.gr05um = line[18] * 256 + line[19]
-        self.gr10um = line[20] * 256 + line[21]
-        self.gr25um = line[22] * 256 + line[23]
-        self.gr50um = line[24] * 256 + line[25]
-        self.gr100um = line[26] * 256 + line[27]
+        #
+        # Docs Found Here: https://github.com/adafruit/Adafruit_CircuitPython_PM25/blob/main/adafruit_pm25/__init__.py#L53
+        #
+
+        self.pm10_cf1 = line[4] * 256 + line[5] # PM1.0 μm/m^3 Standard Atmosphere
+        self.pm25_cf1 = line[6] * 256 + line[7] # PM2.5 μm/m^3 Standard Atmosphere
+        self.pm100_cf1 = line[8] * 256 + line[9] # PM10.0 μm/m^3 Standard Atmosphere
+        self.pm10_std = line[10] * 256 + line[11] # PM1.0 μm/m^3 Current Atmosphere
+        self.pm25_std = line[12] * 256 + line[13] # PM2.5 μm/m^3 Current Atmosphere
+        self.pm100_std = line[14] * 256 + line[15] # PM10.0 μm/m^3 Current Atmosphere
+        self.gr03um = line[16] * 256 + line[17] # Particles > 0.3 μm per 0.1L air
+        self.gr05um = line[18] * 256 + line[19] # Particles > 0.5 μm per 0.1L air
+        self.gr10um = line[20] * 256 + line[21] # Particles > 1.0 μm per 0.1L air
+        self.gr25um = line[22] * 256 + line[23] # Particles > 2.5 μm per 0.1L air
+        self.gr50um = line[24] * 256 + line[25] # Particles > 5.0 μm per 0.1L air
+        self.gr100um = line[26] * 256 + line[27] # Particles > 10 μm per 0.1L air
 
 
 

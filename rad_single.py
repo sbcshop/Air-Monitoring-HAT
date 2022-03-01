@@ -8,12 +8,14 @@ import logging
 import json
 import time
 from os import path
+import sys
 
 import pms_a003
 from pms_a003 import Sensor
 from oled_091 import SSD1306
 from time import sleep
 from serial import SerialException
+from aqi import f_estimateAQI
 
 DIR_PATH = path.abspath(path.dirname(__file__))
 DefaultFont = path.join(DIR_PATH, "Fonts/GothamLight.ttf")
@@ -64,9 +66,17 @@ def info_print(oled_display):
     try:
         values = collect_data()
 
+        eaqi, info["eaqi_h"] = f_estimateAQI(values)
+
+
         jsonic_data = dict(pm1_0=values.pm10_cf1,
                            pm2_5=values.pm25_cf1,
-                           pm10=values.pm100_cf1)
+                           pm10=values.pm100_cf1,
+                           gr03um=values.gr03um,
+                           gr10um=values.gr10um,
+                           gr50um=values.gr50um,
+                           gr100um=values.gr100um,
+                           eaqi=eaqi)
 
         logger.debug(jsonic_data)
 
@@ -74,7 +84,7 @@ def info_print(oled_display):
                                cords=(2, 2), FontSize=10)
         oled_display.PrintText("PM2.5= {:2d}".format(values.pm25_cf1),
                                cords=(65, 2), FontSize=10)
-        oled_display.PrintText("PM10= {:2d}".format(values.pm100_cf1),
+        oled_display.PrintText("AQI= {:2d}".format(eaqi),
                                cords=(25, 20), FontSize=13)
         oled_display.ShowImage()
 
@@ -137,15 +147,16 @@ if __name__ == "__main__":
         else:
 
             if info["data"]["pm2_5"] > threshold_high:
-                msg = "Critical - Bad Air Quality Detected"
+                msg = "Critical - Bad Air Quality Detected ({eaqi_h})".format(**info)
             elif info["data"]["pm2_5"] > threshold_moderate:
-                msg = "Warning - Suboptimal Air Quality Detected"
+                msg = "Warning - Suboptimal Air Quality Detected ({eaqi_h})".format(**info)
             else:
-                msg = "OK - Air Quality Okay"
+                msg = "OK - Air Quality Okay ({eaqi_h})".format(**info)
 
         perf_data = " ".join(["{}={}".format(k, v) for k, v in info["data"].items()])
 
         print("{} | {}".format(msg, perf_data))
+        sys.exit(return_code)
 
 
 
