@@ -149,10 +149,13 @@ if __name__ == "__main__":
 
             if info["data"]["pm2_5"] > threshold_high:
                 msg = "Critical - Air Quality {eaqi_h} ({eaqi:.2f})".format(**info)
+                return_code = 2
             elif info["data"]["pm2_5"] > threshold_moderate:
                 msg = "Warning - Air Quality {eaqi_h} ({eaqi:.2f})".format(**info)
+                return_code = 1
             else:
                 msg = "OK - Air Quality {eaqi_h} ({eaqi:.2f})".format(**info)
+                return_code = 0
 
         perf_data = " ".join(["{}={}".format(k, v) for k, v in info["data"].items()])
 
