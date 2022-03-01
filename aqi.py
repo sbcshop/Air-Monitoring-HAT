@@ -40,6 +40,8 @@ def f_estimateAQI(collection):
             # use
             eaqi_honorrific = honorrific
 
+            logger.debug("Found PM2 in Range for {}".format(honorrific))
+
             left = (table["aqilh"] - table["aquil"]) / (table["ch"] - table["cl"])
             right = ((pm25_rounded - table["cl"]))
             eaqi = left * right + table["aqil"]
